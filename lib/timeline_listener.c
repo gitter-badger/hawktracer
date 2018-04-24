@@ -11,11 +11,31 @@ ht_timeline_listener_container_create(void)
 {
     HT_TimelineListenerContainer* container = HT_CREATE_TYPE(HT_TimelineListenerContainer);
 
-    ht_bag_init(&container->callbacks, 16);
-    ht_bag_init(&container->user_datas, 16);
+    if (!container)
+    {
+        return NULL;
+    }
+
+    if (!ht_bag_init(&container->callbacks, 16))
+    {
+        return NULL;
+    }
+    if (!ht_bag_init(&container->user_datas, 16))
+    {
+        ht_bag_deinit(&container->callbacks);
+        return NULL;
+    }
+
+    container->mutex = ht_mutex_create();
+    if (container->mutex == NULL)
+    {
+        ht_bag_deinit(&container->callbacks);
+        ht_bag_deinit(&container->user_datas);
+        return NULL;
+    }
+
     container->id = 0;
     container->refcount = 1;
-    container->mutex = ht_mutex_create();
 
     return container;
 }

@@ -2,6 +2,7 @@
 #define HAWKTRACER_BAG_H
 
 #include <hawktracer/macros.h>
+#include <hawktracer/base_types.h>
 
 #include <stddef.h>
 
@@ -24,8 +25,10 @@ typedef struct
  *
  * @param bag a pointer to the container.
  * @param min_capacity minimal capacity of the container.
+ *
+ * @return #HT_TRUE, if initialization succeeded; otherwise, #HT_FALSE.
  */
-HT_API void ht_bag_init(HT_Bag* bag, size_t min_capacity);
+HT_API HT_Boolean ht_bag_init(HT_Bag* bag, size_t min_capacity);
 
 /**
  * @brief Uninitializes bag structure.

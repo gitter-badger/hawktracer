@@ -10,14 +10,27 @@ _ht_stack_resize(HT_Stack* stack, size_t new_capacity)
     stack->data = ht_realloc(stack->data, stack->capacity);
 }
 
-void
+HT_Boolean
 ht_stack_init(HT_Stack* stack, size_t capacity, size_t n_capacity)
 {
     stack->data = ht_alloc(capacity);
+
+    if (!stack->data)
+    {
+        return HT_FALSE;
+    }
+
     stack->size = 0;
     stack->capacity = capacity;
     stack->min_capacity = capacity;
-    ht_bag_init(&stack->sizes_stack, n_capacity);
+
+    if (!ht_bag_init(&stack->sizes_stack, n_capacity))
+    {
+        ht_free(stack->data);
+        return HT_FALSE;
+    }
+
+    return HT_TRUE;
 }
 
 void

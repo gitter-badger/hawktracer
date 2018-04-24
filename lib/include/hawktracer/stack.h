@@ -17,7 +17,7 @@ typedef struct
 
 #define HT_PTR_ADD(ptr, value) (((HT_Byte*)ptr) + value)
 
-HT_API void ht_stack_init(HT_Stack* stack, size_t capacity, size_t n_capacity);
+HT_API HT_Boolean ht_stack_init(HT_Stack* stack, size_t capacity, size_t n_capacity);
 
 HT_API void ht_stack_deinit(HT_Stack* stack);
 

@@ -8,13 +8,15 @@ _ht_bag_resize(HT_Bag* bag, size_t new_capacity)
     bag->data = ht_realloc(bag->data, bag->capacity * sizeof(void*));
 }
 
-void
+HT_Boolean
 ht_bag_init(HT_Bag* bag, size_t min_capacity)
 {
     bag->min_capacity = min_capacity;
     bag->capacity = min_capacity;
     bag->size = 0;
     bag->data = ht_alloc(min_capacity * sizeof(void*));
+
+    return bag->data != NULL;
 }
 
 void
